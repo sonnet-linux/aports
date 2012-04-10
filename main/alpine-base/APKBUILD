@@ -9,13 +9,13 @@ arch="noarch"
 license="GPL"
 depends="alpine-baselayout alpine-conf apk-tools busybox busybox-initscripts
 	openrc"
-[ "$ALPINE_LIBC" != "eglibc" ] && depends="$depends uclibc-utils"
+[ "$ALPINE_LIBC" = "uclibc" ] && depends="$depends uclibc-utils"
+[ "$ALPINE_LIBC" = "glibc"  ] && depends="$depends libc6-utils"
 makedepends=
 install=
 subpackages=
 replaces="alpine-baselayout"
 source="http://dev.alpinelinux.org/~ncopa/alpine/alpine-devel@lists.alpinelinux.org-4a6a0840.rsa.pub
-	http://nenolod.net/~nenolod/alpine-keys/alpine-devel@lists.alpinelinux.org-4d07755e.rsa.pub
 	"
 
 build() {
@@ -38,5 +38,4 @@ Kernel \\r on an \\m (\\l)
 EOF
 }
 
-md5sums="75ee19ea2b03c12bc171647edc677f6f  alpine-devel@lists.alpinelinux.org-4a6a0840.rsa.pub
-ca7d06006181b625cf1ff4aefd51bd08  alpine-devel@lists.alpinelinux.org-4d07755e.rsa.pub"
+md5sums="75ee19ea2b03c12bc171647edc677f6f  alpine-devel@lists.alpinelinux.org-4a6a0840.rsa.pub"
