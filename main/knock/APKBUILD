@@ -13,10 +13,13 @@ install=
 subpackages="$pkgname-doc"
 source="http://www.zeroflux.org/proj/knock/files/$pkgname-$pkgver.tar.gz
 	knock.initd
-	knock.confd"
+	knock.confd
+	path-max.patch"
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+
+	patch -p1 -i "$srcdir"/path-max.patch
 
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -35,4 +38,5 @@ package() {
 
 md5sums="ca09d61458974cff90a700aba6120891  knock-0.5.tar.gz
 5f05196d700c04287523d184226e2dc2  knock.initd
-8067d3b8401a0b5d513c44d3ff436032  knock.confd"
+8067d3b8401a0b5d513c44d3ff436032  knock.confd
+1b7efd25668793c9248e530fd804cb54  path-max.patch"
