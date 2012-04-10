@@ -16,7 +16,7 @@ build() {
 	cd "$srcdir/$pkgname-$pkgver"
 
 	# make install needs gnats user
-	sudo sh $srcdir/$install pre_install || return 1
+	sh $srcdir/$install pre_install || return 1
 
 	AWK=awk ./configure --prefix=/usr \
 		--sysconfdir=/etc \
@@ -25,6 +25,11 @@ build() {
 		--infodir=/usr/share/info
 
 	make || return 1
+}
+
+package() {
+	cd "$srcdir/$pkgname-$pkgver"
+
 	make DESTDIR="$pkgdir/" install
 	rm -f "$pkgdir"/gnats.el
 }

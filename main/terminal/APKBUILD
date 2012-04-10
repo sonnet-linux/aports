@@ -8,7 +8,7 @@ arch="all"
 license="GPL-2"
 subpackages="$pkgname-doc $pkgname-lang"
 depends="startup-notification hicolor-icon-theme"
-makedepends="pkgconfig exo-dev vte-dev dbus-glib-dev gettext-dev libiconv-dev
+makedepends="pkgconfig exo-dev vte-dev dbus-glib-dev gettext-dev 
 	intltool ncurses-dev"
 install=
 source="http://archive.xfce.org/src/apps/${pkgname}/0.4/Terminal-${pkgver}.tar.bz2

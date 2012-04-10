@@ -12,12 +12,14 @@ depends=
 subpackages="$pkgname-doc lua-pingu:_lua mtu"
 source="http://git.alpinelinux.org/cgit/$pkgname/snapshot/$pkgname-$pkgver.tar.bz2
 	pingu.initd
+	pingu-strncpy.patch
 	"
 
 _builddir="$srcdir"/$pkgname-$pkgver
 
 build() {
 	cd "$_builddir"
+	[ "$ALPINE_LIBC" = "glibc" ] && patch -p1 < "$srcdir"/pingu-strncpy.patch
 	make || return 1
 }
 
@@ -41,4 +43,5 @@ _lua() {
 }
 
 md5sums="0732926c3ee689598656811b348a2bcb  pingu-1.1.tar.bz2
-70f56b0f506e1c2e725d0ec062667c32  pingu.initd"
+70f56b0f506e1c2e725d0ec062667c32  pingu.initd
+bedb6757dcecdbf74e7b53396e3583f1  pingu-strncpy.patch"

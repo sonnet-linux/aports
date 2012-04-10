@@ -8,7 +8,7 @@ arch="all"
 license="LGPL"
 subpackages="$pkgname-dev $pkgname-doc"
 depends="glib-networking"
-makedepends="pkgconfig glib-dev gnutls-dev libxml2-dev libiconv-dev
+makedepends="pkgconfig glib-dev gnutls-dev libxml2-dev 
 	gettext-dev libgcrypt-dev libgpg-error-dev zlib-dev
 	gobject-introspection-dev"
 source="http://ftp.gnome.org/pub/gnome/sources/$pkgname/${pkgver%.*}/$pkgname-$pkgver.tar.bz2"

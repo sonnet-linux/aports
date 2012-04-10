@@ -7,7 +7,7 @@ _specs_gcc_ver=4.4.3
 
 _uclibc_abiver=0.9.32
 
-pkgrel=0
+pkgrel=1
 pkgdesc="The GNU Compiler Collection"
 url="http://gcc.gnu.org"
 arch="all"
@@ -20,6 +20,7 @@ replaces="libstdc++"
 
 if [ -n "$BOOTSTRAP" ]; then
 	LANG_OBJC=off
+	LANG_GO=off
 	LANG_JAVA=off
 	LANG_FORTRAN=off
 fi
@@ -144,6 +145,12 @@ build() {
 		*-uclibc)
 			_dynamic_linker="--with-dynamic-linker=ld-uClibc.so.$_uclibc_abiver"
 			;;
+		x86_64-*-gnu)
+			_dynamic_linker="--with-dynamic-linker=ld-linux-x86-64.so.2"
+			;;
+		*-gnu)
+			_dynamic_linker="--with-dynamic-linker=ld-linux.so.2"
+			;;
 		*)	_dynamic_linker=
 			;;
 	esac
@@ -225,7 +232,7 @@ package() {
 	
 	[ "$LANG_JAVA" = "on" ] && \
 		sed -i -e 's/lib: /&%{static:%eJava programs cannot be linked statically}/' \
-		"$pkdir"/usr/lib/libgcj.spec
+		"$pkgdir"/usr/lib/libgcj.spec
 
 	# remove ffi
 	rm "$pkgdir"/usr/lib/libffi* "$pkgdir"/usr/share/man/man3/ffi* \
@@ -236,7 +243,7 @@ package() {
 	mv "$pkgdir"/usr/lib/*-gdb.py \
 		"$pkgdir"/usr/share/gdb/python/auto-load/usr/lib/
 
-	paxctl -c -pmrs "$pkgdir"/usr/libexec/gcc/*/*/cc1 || return 1
+	#paxctl -c -pmrs "$pkgdir"/usr/libexec/gcc/*/*/cc1 || return 1
 }
 
 libcxx() {
@@ -256,7 +263,7 @@ gpp() {
 		"$subpkgdir"/usr/lib \
 
 	mv "$pkgdir/$libexec/cc1plus" "$subpkgdir/$libexec/"
-	paxctl -c -pmrs "$subpkgdir/$libexec/cc1plus" || return 1
+	#paxctl -c -pmrs "$subpkgdir/$libexec/cc1plus" || return 1
 
 	mv "$pkgdir"/usr/lib/*++* "$subpkgdir"/usr/lib/
 	mv "$pkgdir"/usr/include/c++ "$subpkgdir"/usr/include/
@@ -288,7 +295,7 @@ libgomp() {
 
 java() {
 	pkgdesc="Java support for GCC"
-	paxctl -c -pm "$pkgdir"/usr/libexec/gcc/*/*/ecj1 || return 1
+	#paxctl -c -pm "$pkgdir"/usr/libexec/gcc/*/*/ecj1 || return 1
 	mkdir -p "$subpkgdir"/usr/bin "$subpkgdir"/usr/lib
 	cd "$pkgdir"/usr/bin
 	mv gcj gcj-dbtool gjavah gcjh jcf-dump "$subpkgdir"/usr/bin/
@@ -308,7 +315,7 @@ libgcj() {
 	pkgdesc="Java runtime library for gcc"
 	mkdir -p "$subpkgdir"/usr/bin
 	cd "$pkgdir"/usr/bin
-	paxctl -c -pmE "$pkgdir"/usr/bin/gij || return 1
+	#paxctl -c -pmE "$pkgdir"/usr/bin/gij || return 1
 	mv aot-compile gappletviewer gc-analyze gij gjar gjarsigner gkeytool\
 		gnative2ascii gorbd grmic grmid grmiregistry gserialver \
 		gtnameserv i486-alpine-linux-uclibc-gcj jv-convert \

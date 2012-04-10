@@ -8,7 +8,7 @@ url="http://ghostscript.com/"
 arch="all"
 license="GPL3"
 makedepends="autoconf automake jpeg-dev libpng-dev jasper-dev expat-dev zlib-dev tiff-dev 
-             freetype-dev libiconv-dev lcms-dev"
+             freetype-dev lcms-dev"
 subpackages="$pkgname-doc $pkgname-dev"
 source="http://downloads.ghostscript.com/public/$pkgname-$pkgver.tar.gz"
 

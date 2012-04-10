@@ -8,7 +8,7 @@ url="http://ngircd.barton.de/"
 arch="all"
 license="GPL"
 depends=
-makedepends="openssl-dev zlib-dev linux-pam-dev"
+makedepends="openssl-dev zlib-dev"
 install="$pkgname.pre-install"
 source="ftp://ftp.berlios.de/pub/$pkgname/$pkgname-$pkgver.tar.gz
 	client_user_len.patch
@@ -36,7 +36,6 @@ build() {
 		--mandir=/usr/share/man \
 		--without-ident \
 		--with-openssl \
-		--with-pam \
 		|| return 1
 	make || return 1
 }

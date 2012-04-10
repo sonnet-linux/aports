@@ -42,5 +42,5 @@ package() {
 }
 
 md5sums="701c540acaab961bc3adf130a2ddb8b1  Remmina-1.0.0.tar.gz
-594668bf54d4068cc57f8cfdae482adb  underlinking.patch
+7d86296fe3a05bd6c47e0c76368a3b99  underlinking.patch
 178d55f7aa59d6dc73b19e03201ad1e4  no-gnome-keyring.patch"

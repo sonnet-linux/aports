@@ -10,7 +10,7 @@ arch="all"
 license="PHP-3"
 depends="$pkgname-cgi"
 install="$pkgname.post-upgrade"
-makedepends="pcre-dev libxml2-dev libiconv-dev openssl-dev zlib-dev bzip2-dev
+makedepends="pcre-dev libxml2-dev  openssl-dev zlib-dev bzip2-dev
 	curl-dev libpng-dev jpeg-dev freetype-dev libmcrypt-dev mysql-dev
 	sqlite-dev libtool libltdl postgresql-dev db-dev unixodbc-dev icu-dev
 	gd-dev gmp-dev gettext-dev imap-dev aspell-dev

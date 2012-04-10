@@ -23,7 +23,7 @@ prepare() {
 
 build() {
 	cd "$_builddir"
-	export LIBS="-lintl"
+	[ "$ALPINE_LIBC" != "glibc" ] && export LIBS="$LIBS -lintl"
 	./configure --prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \

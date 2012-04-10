@@ -4,15 +4,18 @@ pkgver=0.9.22
 pkgrel=2
 pkgdesc="a user-space implementation of the NFSv3 server specification"
 url="http://unfs3.sourceforge.net/"
-arch="all"
+#arch="all"
 license='GPL'
 depends=""
-makedepends="flex"
+makedepends="flex libtirpc-dev"
 source="http://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
 subpackages="$pkgname-doc"
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+
+	export CFLAGS="$CFLAGS -I/usr/include/tirpc"
+	export LIBS="$LIBS -ltirpc"
 
 	./configure --prefix=/usr \
 		--mandir=/usr/share/man

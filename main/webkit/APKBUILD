@@ -10,7 +10,7 @@ depends=
 makedepends="
 	libsoup-dev pango-dev gtk+-dev jpeg-dev libpng-dev libxml2-dev
 	gperf pkgconfig bison flex icu-dev cairo-dev atk-dev
-	gnutls-dev sqlite-dev libxslt-dev libxt-dev libiconv-dev gettext-dev
+	gnutls-dev sqlite-dev libxslt-dev libxt-dev  gettext-dev
 	zlib-dev libgcrypt-dev libgpg-error-dev expat-dev e2fsprogs-dev
 	enchant-dev libxi-dev libxrandr-dev libxcursor-dev libxdamage-dev
 	libxcomposite-dev gstreamer-dev gst-plugins-base-dev

@@ -10,7 +10,7 @@ license="GPLv2"
 depends=
 depends_dev=
 makedepends="perl-dev openssl-dev cyrus-sasl-dev python-dev c-ares-dev swig
-	libiconv-dev tcl-dev autoconf automake"
+	 tcl-dev autoconf automake"
 install=""
 subpackages="$pkgname-dev $pkgname-doc $pkgname-extra $pkgname-modtcl
 	$pkgname-modperl"

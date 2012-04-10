@@ -32,7 +32,7 @@ makedepends="pkgconfig
 	gnutls-dev
 	gobject-introspection-dev
 	libice-dev
-	libiconv-dev
+	
 	jpeg-dev>=8
 	libx11-dev
 	libxcomposite-dev

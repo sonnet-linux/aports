@@ -9,10 +9,11 @@ arch="all"
 license="GPL"
 depends="gnome-icon-theme"
 depends_dev="gtk+-dev poppler-gtk-dev libsm-dev libevent-dev libxrandr-dev libx11-dev libxcursor-dev libxcomposite-dev libxi-dev util-linux-dev"
-makedepends="$depends_dev intltool gnome-doc-utils"
+makedepends="$depends_dev intltool gnome-doc-utils autoconf automake libtool"
 install=""
 subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
-source="ftp://ftp.gnome.org/pub/GNOME/sources/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2"
+source="ftp://ftp.gnome.org/pub/GNOME/sources/${pkgname}/${pkgver%.*}/${pkgname}-${pkgver}.tar.bz2
+	binutils-gold.patch"
 
 _builddir="${srcdir}/${pkgname}-${pkgver}"
 prepare() {
@@ -43,4 +44,5 @@ package() {
 	find "$pkgdir" -name '*.la' -delete
 }
 
-md5sums="ebc3ce6df8dcbf29cb9492f8dd031319  evince-2.32.0.tar.bz2"
+md5sums="ebc3ce6df8dcbf29cb9492f8dd031319  evince-2.32.0.tar.bz2
+4312ddaaf3ea78cecee9d9f7e404447c  binutils-gold.patch"

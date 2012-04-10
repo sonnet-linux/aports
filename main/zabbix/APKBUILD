@@ -8,7 +8,7 @@ url="www.zabbix.com"
 arch="all"
 license="GPL"
 depends="fping"
-makedepends="postgresql-dev curl-dev libiconv-dev net-snmp-dev
+makedepends="postgresql-dev curl-dev  net-snmp-dev
 	sqlite-dev mysql-dev curl-dev"
 install="$pkgname.pre-install"
 pkgusers="zabbix"

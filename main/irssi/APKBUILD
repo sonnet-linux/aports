@@ -8,6 +8,7 @@ arch="all"
 license='GPL'
 depends="perl"
 makedepends="glib-dev openssl-dev ncurses-dev perl-dev pkgconfig"
+options="libtool"
 source="
 	http://irssi.org/files/irssi-${pkgver}.tar.bz2
 	$pkgname-italics.patch

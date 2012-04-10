@@ -1,18 +1,18 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=glib
 pkgver=2.30.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Common C routines used by Gtk+ and other libs"
 url="http://www.gtk.org"
 arch="all"
 license='GPL'
 depends=
 triggers="$pkgname.trigger=/usr/share/glib-2.0/schemas:/usr/lib/gio/modules"
-depends_dev="perl gettext-dev libiconv-dev zlib-dev bzip2-dev libffi-dev"
+depends_dev="perl gettext-dev zlib-dev bzip2-dev libffi-dev"
 makedepends="$depends_dev"
 source="http://ftp.gnome.org/pub/gnome/sources/glib/${pkgver%.*}/glib-$pkgver.tar.bz2"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-lang"
-
+options="libtool"
 
 _builddir="$srcdir/$pkgname-$pkgver"
 
@@ -32,7 +32,7 @@ build() {
 package() {
 	cd "$_builddir"
 	make DESTDIR="$pkgdir/" install
-	rm "$pkgdir"/usr/lib/*.la
+	#rm "$pkgdir"/usr/lib/*.la
 }
 
 # move the stuff in /usr/bin to the glib-dev package

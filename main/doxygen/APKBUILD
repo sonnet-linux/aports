@@ -7,7 +7,7 @@ url="http://www.doxygen.org/"
 arch="all"
 license="GPL"
 depends=""
-makedepends="flex bison coreutils perl libiconv-dev"
+makedepends="flex bison coreutils perl "
 subpackages="$pkgname-doc"
 source="ftp://ftp.stack.nl/pub/users/dimitri/doxygen-$pkgver.src.tar.gz"
 
@@ -22,9 +22,11 @@ prepare() {
 		|| return 1
 
         # Ensure we link to -liconv
-	for pro in */*.pro.in */*/*.pro.in; do
-		echo "unix:LIBS += -liconv" >> "${pro}"
-	done
+	if [ "$ALPINE_LIBC" != "glibc" ]; then
+		for pro in */*.pro.in */*/*.pro.in; do
+			echo "unix:LIBS += -liconv" >> "${pro}"
+		done
+	fi
 
         # fix final DESTDIR issue
 	sed -i -e "s:\$(INSTALL):\$(DESTDIR)/\$(INSTALL):g" \

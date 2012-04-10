@@ -8,9 +8,9 @@ arch="all"
 license="LGPL"
 subpackages="$pkgname-dev $pkgname-doc"
 depends=
-depends_dev="libx11-dev libiconv-dev"
+depends_dev="libx11-dev "
 makedepends="libxext-dev libxrender-dev libx11-dev libice-dev libsm-dev 
-	libxrandr-dev mesa-dev alsa-lib-dev libiconv-dev"
+	libxrandr-dev mesa-dev alsa-lib-dev "
 source="http://www.libsdl.org/release/SDL-$pkgver.tar.gz"
 
 build() {

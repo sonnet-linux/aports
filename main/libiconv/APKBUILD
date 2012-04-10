@@ -4,7 +4,7 @@ pkgver=1.12
 pkgrel=6
 pkgdesc="GNU charset conversion library for libc which doesn't implement it"
 url="http://www.gnu.org/software/libiconv"
-arch="all"
+[ "$ALPINE_LIBC" != "glibc" ] && arch="all"
 license='LGPL'
 depends=""
 source="http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.12.tar.gz"

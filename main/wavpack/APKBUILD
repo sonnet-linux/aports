@@ -10,7 +10,7 @@ license="custom"
 depends=
 makedepends="autoconf automake libtool"
 if [ "$ALPINE_LIBC" != eglibc ]; then
-	makedepends="$makedepends libiconv-dev"
+	makedepends="$makedepends "
 fi
 install=
 subpackages="$pkgname-dev $pkgname-doc"

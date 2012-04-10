@@ -10,7 +10,7 @@ license="GPL"
 depends=
 makedepends=
 if [ "$ALPINE_LIBC" != "eglibc" ]; then
-	makedepends="libiconv-dev"
+	makedepends=""
 fi
 install=
 subpackages="$pkgname-dev"

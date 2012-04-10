@@ -9,7 +9,7 @@ license="GPL-2"
 subpackages="$pkgname-doc $pkgname-lang"
 depends="hicolor-icon-theme"
 makedepends="pkgconfig xfce4-panel-dev libnotify-dev intltool gettext-dev
-	libiconv-dev libsm-dev expat-dev e2fsprogs-dev libxfcegui4-dev autoconf automake"
+	 libsm-dev expat-dev e2fsprogs-dev libxfcegui4-dev autoconf automake"
 install=
 source="http://archive.xfce.org/src/apps/orage/${pkgver%.*}/orage-$pkgver.tar.bz2"
 

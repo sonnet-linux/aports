@@ -105,6 +105,6 @@ mcookie() {
 	mv "$pkgdir"/usr/bin/mcookie "$subpkgdir"/usr/bin/
 }
 
-md5sums="fbcd168147c87550804744b70c2feac5  util-linux-2.20.tar.gz
+md5sums="9f2c3c864d9e7db8732f41b7e48dfff2  util-linux-2.20.tar.gz
 079dc713684e01ad48c7e0bb877dc51a  program-invocation.patch
 b0b5ef3a9f785a5431675da696b60262  0001-script-fix-building-with-disable-nls.patch"

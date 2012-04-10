@@ -17,6 +17,9 @@ source="http://www.acme.com/software/mini_httpd/$pkgname-$pkgver.tar.gz
 
 build() {
 	cd "$srcdir/$pkgname-$pkgver"
+
+	sed -i s:getline:htgetline:g htpasswd.c
+
 	make CFLAGS="${CFLAGS} -DUSE_SSL" \
 		LDFLAGS="${LDFLAGS}" \
 		SSL_LIBS="-lssl -lcrypto" \

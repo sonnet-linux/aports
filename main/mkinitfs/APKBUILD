@@ -19,6 +19,7 @@ prepare() {
 	# If we are using eglibc/glibc we need to include eglibc libs
 	# instead of uclibc libs.
 	for i in $source; do
+		msg $i
 		case $i in
 		eglibc.patch)
 			case "$CHOST" in
@@ -28,7 +29,7 @@ prepare() {
 			esac
 			;;
 		*.patch)
-			msg $i; patch -p1 -i "$srcdir"/$i || return 1
+			patch -p1 -i "$srcdir"/$i || return 1
 			;;
 		esac
 	done
@@ -45,4 +46,4 @@ package() {
 }
 md5sums="0a2306eefdeb8a92121eae6546d0d873  mkinitfs-2.4.2.tar.bz2
 f2719523ec4c5e877ae46e70e6f85edb  0001-init-generate-the-repositories-after-relocation.patch
-e59c2f7de496fe430b07e32fd812ebe0  eglibc.patch"
+37282c543c15e5aa9179479a9b72591d  eglibc.patch"

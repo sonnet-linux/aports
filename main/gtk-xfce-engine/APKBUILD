@@ -7,7 +7,7 @@ url="http://www.xfce.org/"
 arch="all"
 license="GPL-2"
 depends=
-makedepends="pkgconfig gtk+-dev libiconv-dev gettext-dev expat-dev"
+makedepends="pkgconfig gtk+-dev  gettext-dev expat-dev"
 source="http://archive.xfce.org/src/xfce/gtk-xfce-engine/${pkgver%.*}/gtk-xfce-engine-$pkgver.tar.bz2"
 
 _builddir="$srcdir"/$pkgname-$pkgver

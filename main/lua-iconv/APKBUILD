@@ -8,7 +8,7 @@ url="http://luaforge.net/projects/lua-iconv/"
 arch="all"
 license="MIT"
 depends=
-makedepends="libiconv-dev lua-dev"
+makedepends=" lua-dev"
 install=
 subpackages=
 source="http://luaforge.net/frs/download.php/4181/lua-iconv-6.tar.gz
@@ -22,7 +22,7 @@ prepare() {
 
 build() {
 	cd "$_builddir"
-	make CFLAGS="$CFLAGS" LFLAGS="-llua -liconv -shared $LDFLAGS" \
+	make CFLAGS="$CFLAGS" LFLAGS="-llua -shared $LDFLAGS" \
 		|| return 1
 }
 
