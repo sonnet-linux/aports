@@ -2,7 +2,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=alpine-mirrors
 pkgver=2.3_git20120213
-pkgrel=0
+pkgrel=1
 pkgdesc="List of Alpine Linux Mirrors"
 url="http://alpinelinux.org/"
 arch="noarch"
@@ -26,5 +26,5 @@ package() {
 		"$pkgdir"/usr/share/alpine-mirrors/RELEASES.txt
 }
 
-md5sums="1ebf90aea05f9facf9bdc91fca7620ed  MIRRORS.txt
-2d261c2947ccf35000ae3128d33da04a  RELEASES.txt"
+md5sums="39ed4ac51faa4d1e7f0264856d9e5c89  MIRRORS.txt
+e2e065166717c5c296d71e0aeff1e915  RELEASES.txt"
