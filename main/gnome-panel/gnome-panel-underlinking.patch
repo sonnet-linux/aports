@@ -1,0 +1,48 @@
+--- gnome-panel-2.32.1/gnome-panel/Makefile.am
++++ gnome-panel-2.32.1.mod/gnome-panel/Makefile.am
+@@ -128,7 +128,7 @@
+ 	-DPANEL_MODULES_DIR=\"$(modulesdir)\"	\
+ 	-DGMENU_I_KNOW_THIS_IS_UNSTABLE
+ 
+-gnome_panel_LDADD =		\
++gnome_panel_LDADD = -lm \
+ 	$(top_builddir)/gnome-panel/libegg/libegg.la					\
+ 	$(top_builddir)/gnome-panel/libpanel-applet-private/libpanel-applet-private.la	\
+ 	$(top_builddir)/gnome-panel/libpanel-util/libpanel-util.la			\
+--- gnome-panel-2.32.1/gnome-panel/Makefile.in
++++ gnome-panel-2.32.1.mod/gnome-panel/Makefile.in
+@@ -576,7 +576,7 @@
+ 	-DPANEL_MODULES_DIR=\"$(modulesdir)\"	\
+ 	-DGMENU_I_KNOW_THIS_IS_UNSTABLE
+ 
+-gnome_panel_LDADD = \
++gnome_panel_LDADD = -lm \
+ 	$(top_builddir)/gnome-panel/libegg/libegg.la					\
+ 	$(top_builddir)/gnome-panel/libpanel-applet-private/libpanel-applet-private.la	\
+ 	$(top_builddir)/gnome-panel/libpanel-util/libpanel-util.la			\
+--- gnome-panel-2.32.1.orig/applets/notification_area/Makefile.am
++++ gnome-panel-2.32.1/applets/notification_area/Makefile.am
+@@ -37,8 +37,9 @@
+ 
+ testtray_SOURCES = testtray.c
+ testtray_LDADD =			\
+-	$(X_LIBS)			\
++	$(LIBPANEL_APPLET_LIBS)		\
+ 	$(NOTIFICATION_AREA_LIBS)	\
++	$(X_LIBS)			\
+ 	libtray.la
+ 
+ if NOTIFICATION_AREA_INPROCESS
+--- gnome-panel-2.32.1.orig/applets/notification_area/Makefile.in
++++ gnome-panel-2.32.1/applets/notification_area/Makefile.in
+@@ -411,8 +411,9 @@
+ 
+ testtray_SOURCES = testtray.c
+ testtray_LDADD = \
+-	$(X_LIBS)			\
++	$(LIBPANEL_APPLET_LIBS)		\
+ 	$(NOTIFICATION_AREA_LIBS)	\
++	$(X_LIBS)			\
+ 	libtray.la
+ 
+ @NOTIFICATION_AREA_INPROCESS_FALSE@APPLET_IN_PROCESS = false
