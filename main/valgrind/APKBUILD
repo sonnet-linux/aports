@@ -4,7 +4,7 @@ pkgver=3.7.0
 pkgrel=3
 pkgdesc="A tool to help find memory-management problems in programs"
 url="http://valgrind.org/"
-arch="all"
+#arch="all"
 license="GPL"
 depends=""
 # it seems like busybox sed works but the configure script requires GNU sed
