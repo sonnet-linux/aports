@@ -46,4 +46,4 @@ package() {
 }
 md5sums="0a2306eefdeb8a92121eae6546d0d873  mkinitfs-2.4.2.tar.bz2
 f2719523ec4c5e877ae46e70e6f85edb  0001-init-generate-the-repositories-after-relocation.patch
-37282c543c15e5aa9179479a9b72591d  eglibc.patch"
+36e31d4fa8162f684a865ae328e2ddb0  eglibc.patch"
