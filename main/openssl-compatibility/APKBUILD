@@ -1,0 +1,24 @@
+# Maintainer: William Pitcock <nenolod@dereferenced.org>
+pkgname=openssl-compatibility
+pkgver=0.9.8
+pkgrel=0
+pkgdesc="Arch's libssl and libcrypto 0.9.8 libs (for binary blobs)"
+arch="x86 x86_64"
+url="https://www.openssl.org"
+license="BSD"
+depends=""
+makedepends=""
+
+REAL_CARCH=$CARCH
+[ "$CARCH" = "x86" ] && REAL_CARCH="i686"
+
+source="http://schlunix.org/archlinux/core/os/$REAL_CARCH/openssl-0.9.8n-1-$REAL_CARCH.pkg.tar.xz"
+
+package() {
+	mkdir -p "$pkgdir"/usr/lib
+	install -m555 "$srcdir"/usr/lib/libcrypto.so.0.9.8 "$pkgdir"/usr/lib
+	install -m555 "$srcdir"/usr/lib/libssl.so.0.9.8 "$pkgdir"/usr/lib
+}
+
+[ "$CARCH" = "x86_64" ] && md5sums="c97c359cff79ff25ee8f221541642aa3  openssl-0.9.8n-1-x86_64.pkg.tar.xz"
+[ "$CARCH" = "x86"    ] && md5sums="b1860e7fd78210542fbb4913aa7e8eb1  openssl-0.9.8n-1-i686.pkg.tar.xz"
