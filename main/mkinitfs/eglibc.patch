@@ -10,7 +10,7 @@
  /lib/libz.*
 -/lib/ld*-uClibc-[0-9]*
 -/lib/ld*-uClibc.so*
-+/lib/ld*-linux*.so*
++/lib/ld*.so*
  /lib/mdev
  /sbin/apk
  /etc/modprobe.d/*.conf
