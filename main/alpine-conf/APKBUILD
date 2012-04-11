@@ -1,12 +1,12 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=alpine-conf
 pkgver=2.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Alpine configuration management scripts"
 url=http://git.alpinelinux.org/cgit/$pkgname
 depends=""
 source="http://git.alpinelinux.org/cgit/$pkgname/snapshot/$pkgname-$pkgver.tar.bz2
-	"
+	bleeding-release-is-current.patch"
 
 arch="all"
 license="GPL-2"
@@ -36,4 +36,5 @@ package() {
 		ln -s lbu "$pkgdir"/sbin/lbu_$i
 	done
 }
-md5sums="41770f37b79868aec34ce5f2b03c495b  alpine-conf-2.10.0.tar.bz2"
+md5sums="41770f37b79868aec34ce5f2b03c495b  alpine-conf-2.10.0.tar.bz2
+b5fe9ce006b1d4967afbac03191bbe1c  bleeding-release-is-current.patch"
