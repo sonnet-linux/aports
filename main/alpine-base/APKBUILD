@@ -2,13 +2,13 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=alpine-base
 pkgver=2.4_beta20120403
-pkgrel=0
+pkgrel=1
 pkgdesc="Meta package for minimal alpine base"
 url="http://alpinelinux.org"
 arch="noarch"
 license="GPL"
 depends="alpine-baselayout alpine-conf apk-tools busybox busybox-initscripts
-	openrc"
+	systemd"
 [ "$ALPINE_LIBC" = "uclibc" ] && depends="$depends uclibc-utils"
 [ "$ALPINE_LIBC" = "glibc"  ] && depends="$depends libc6-utils"
 makedepends=
