@@ -1,0 +1,8 @@
+[Unit]
+Description=LXDE Display Manager
+
+[Service]
+ExecStart=/usr/sbin/lxdm
+
+[Install]
+WantedBy=graphical.target
