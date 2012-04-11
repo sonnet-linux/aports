@@ -2,7 +2,7 @@
 # Maintainer: William Pitcock <nenolod@dereferenced.org>
 pkgname=lxdm
 pkgver=0.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="LXDE desktop login manager"
 url="http://wiki.lxde.org/en/LXDM"
 license="GPL"
@@ -13,6 +13,7 @@ subpackages="$pkgname-lang"
 source="http://downloads.sourceforge.net/lxde/$pkgname-$pkgver.tar.gz
 	background.png
 	lxdm.initd
+	lxdm.service
 	index.theme.alpine"
 arch="all"
 
@@ -64,9 +65,15 @@ package() {
 	
 	# Install the custom Alpine background
 	install -m644 -D "$srcdir"/background.png "$pkgdir"/usr/share/lxdm/themes/Alpine/background.png
+
+	install -m644 -D "$srcdir"/lxdm.service "$pkgdir"/usr/lib/systemd/system/lxdm.service
+	mkdir -p "$pkgdir"/etc/systemd/system/graphical.target.wants
+	ln -sf /usr/lib/systemd/system/lxdm.service \
+		"$pkgdir"/etc/systemd/system/graphical.target.wants/lxdm.service
 }
 
 md5sums="8da1cfc2be6dc9217c85a7cf51e1e821  lxdm-0.4.1.tar.gz
 a510afe725112947d16f6c1f0602effe  background.png
 d6455d172d5d897f6bfcefe9a1a632c7  lxdm.initd
+1c75240c22cfde2139f2c32909ef1a9b  lxdm.service
 06ea32ef440375839851c4bc7caea004  index.theme.alpine"
