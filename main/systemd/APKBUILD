@@ -1,7 +1,7 @@
 # Maintainer: William Pitcock <nenolod@dereferenced.org>
 pkgname=systemd
 pkgver=44
-pkgrel=5
+pkgrel=8
 pkgdesc="newfangled system init tool"
 url="http://freedesktop.org/wiki/Software/systemd"
 arch="all"
@@ -16,7 +16,10 @@ source="http://www.freedesktop.org/software/systemd/systemd-$pkgver.tar.xz
 	ifup@.service
 	getty@.service
 	remount-rootfs.service
-	os-release"
+	modloop.service
+	os-release
+	modloop-start-helper
+	modloop-stop-helper"
 
 _builddir="$srcdir"/systemd-$pkgver
 prepare() {
@@ -61,12 +64,19 @@ package() {
 
 	ln -sf ../bin/systemd "$pkgdir"/sbin/init
 
+	ln -sf /usr/lib/systemd/system/modloop.service \
+		"$pkgdir"/etc/systemd/system/multi-user.target.wants/modloop.service
 	ln -sf /usr/lib/systemd/system/network.target \
-		"$pkgdir"/etc/systemd/system/multi-user.target.wants
+		"$pkgdir"/etc/systemd/system/multi-user.target.wants/network.target
 
 	mkdir -p "$pkgdir"/etc/systemd/system/network.target.wants
 	ln -sf /usr/lib/systemd/system/ifup@.service \
 		"$pkgdir"/etc/systemd/system/network.target.wants/ifup@eth0.service
+
+	install -D -m755 "$srcdir"/modloop-start-helper \
+		"$pkgdir"/sbin/modloop-start-helper
+	install -D -m755 "$srcdir"/modloop-stop-helper \
+		"$pkgdir"/sbin/modloop-stop-helper
 }
 
 gtk() {
@@ -80,4 +90,7 @@ md5sums="11f44ff74c87850064e4351518bcff17  systemd-44.tar.xz
 74d5ab3a79f6e2bf7cea3b2c866340a7  ifup@.service
 fe7e40d5d5c9d89eade0a2120873d26e  getty@.service
 c1c5291dd594466dc6f6e4fac9e8b5de  remount-rootfs.service
-21439735ae9bad25beb9edbcdce60712  os-release"
+ab98ee0cc79db1632384cd35f321a9e7  modloop.service
+21439735ae9bad25beb9edbcdce60712  os-release
+3d69c57736771ca1c46c90b4fa5c0dcf  modloop-start-helper
+fcf809092a93af4a8709196f51c1aaf4  modloop-stop-helper"

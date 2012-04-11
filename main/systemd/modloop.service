@@ -1,0 +1,8 @@
+[Unit]
+Description=modloop filesystem for livecd
+
+[Service]
+Environment="PATH=/bin:/sbin:/usr/bin:/usr/sbin"
+ExecStart=/sbin/modloop-start-helper
+ExecStop=/sbin/modloop-stop-helper
+RemainAfterExit=true

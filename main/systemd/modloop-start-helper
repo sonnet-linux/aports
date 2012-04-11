@@ -1,0 +1,99 @@
+#!/bin/sh
+
+# script that will mount image with modules
+
+# read kernel options
+init_KOPT() {
+	eval set -- $(cat /proc/cmdline 2>/dev/null)
+	while [ $# -gt 0 ]; do
+	        case "$1" in
+                	*=*)    eval "KOPT_${1%%=*}='${1#*=}'" ;;
+	                *)      eval "KOPT_$(echo $1 | sed 's: :_:g')=yes" ;;
+        	esac
+        	shift
+	done
+}
+
+resolve_dev() {
+	case "$1" in
+	UUID=*|LABEL=*) findfs "$1";;
+	*) readlink -f "$1";;
+	esac
+}
+
+find_mnt() {
+	local search_dev="$1" fstab="$2"
+	local dev mnt fs mntopts chk
+	case "$search_dev" in
+		UUID=*|LABEL=*|/dev/*);;
+		*) search_dev=/dev/$search_dev;;
+	esac
+	local search_real_dev=$(resolve_dev $search_dev)
+	while read dev mnt fs mntopts chk; do
+		local real_dev=$(resolve_dev $dev)
+		local i j
+		for i in "$search_dev" "$search_real_dev"; do
+			[ -z "$i" ] && continue
+			for j in "$dev" "$real_dev"; do
+				[ -z "$j" ] && continue
+				if [ "$i" = "$j" ]; then
+					echo "$mnt"
+					return
+				fi
+			done
+		done
+	done < $fstab 2>/dev/null
+}
+
+# initialies: alpine_dev, alpine_mnt, alpine_fs, alpine_mounted
+find_media() {
+	init_KOPT &> /dev/null
+	[ -z "$KOPT_alpine_dev" ] && return 0
+	alpine_mounted=
+	alpine_dev=${KOPT_alpine_dev%%:*}
+	alpine_fs=${KOPT_alpine_dev#*:}
+	[ "$alpine_fs" = "$KOPT_alpine_dev" ] && unset alpine_fs
+	# first we check if alpine_dev is mounted and use this
+	alpine_mnt=$(find_mnt $alpine_dev /proc/mounts)
+	if [ -z "$alpine_mnt" ]; then
+		# then we check fstab
+		alpine_mnt=$(find_mnt /dev/$alpine_dev /etc/fstab)
+	fi
+	# finally we fallback to /media/<devicename>
+	[ -z "$alpine_mnt" ] && alpine_mnt=/media/$alpine_dev
+}
+
+find_media
+if [ -z "$alpine_dev" ] ; then
+	exit 0
+fi
+
+mkdir -p $alpine_mnt
+[ -n "$alpine_fs" ] && mount_opts="-t $alpine_fs"
+mount $mount_opts /dev/$alpine_dev $alpine_mnt 2>/dev/null
+mkdir -p /.modloop /lib
+
+for modloop in ${alpine_mnt}$KOPT_modloop \
+		${alpine_mnt}$KOPT_BOOT_IMAGE.modloop.* \
+		${alpine_mnt}$KOPT_BOOT_IMAGE.cmg; do
+	[ -f "$modloop" ] || continue
+	mount -o loop,ro $fs_opt $modloop /.modloop \
+		&& modloop_mounted=1
+done
+
+#use unionfs is available and configured
+if grep -q -w "unionfs$" /proc/filesystems && [ -n "$unionfs_size" ]; then
+	mkdir -p /.modunisonfs/modules /lib/modules
+	mount -t tmpfs -o size="$unionfs_size" tmpfs /.modunisonfs/modules
+	mount -t unionfs -o dirs=/.modunisonfs/modules=rw:/.modloop/modules=ro unionfs /lib/modules
+else
+	rm -rf /lib/modules && ln -sf /.modloop/modules /lib/
+fi
+
+# copy firmware if there are any
+if [ -d $alpine_mnt/firmware ]; then
+        cp -R -a $alpine_mnt/firmware /lib/
+elif  [ -d /lib/modules/firmware ]; then
+	rmdir /lib/firmware 2>/dev/null \
+		&& ln -s /lib/modules/firmware /lib/
+fi
