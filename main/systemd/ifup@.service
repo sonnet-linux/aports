@@ -1,0 +1,9 @@
+[Unit]
+Description=ifup for %I
+After=local-fs.target
+
+[Service]
+Environment="PATH=/bin:/sbin:/usr/bin:/usr/sbin"
+ExecStart=/sbin/ifup %I
+ExecStop=/sbin/ifdown %I
+RemainAfterExit=true

@@ -1,0 +1,83 @@
+# Maintainer: William Pitcock <nenolod@dereferenced.org>
+pkgname=systemd
+pkgver=44
+pkgrel=5
+pkgdesc="newfangled system init tool"
+url="http://freedesktop.org/wiki/Software/systemd"
+arch="all"
+license="GPL"
+depends="dbus udev"
+depends_dev="polkit-dev libcap-dev udev-dev kmod-dev gtk+2.0-dev 
+	libgee-dev libnotify-dev xz-dev acl-dev cryptsetup-dev"
+makedepends="$depends_dev intltool gperf vala m4"
+install=""
+subpackages="$pkgname-dev $pkgname-doc $pkgname-gtk"
+source="http://www.freedesktop.org/software/systemd/systemd-$pkgver.tar.xz
+	ifup@.service
+	getty@.service
+	remount-rootfs.service
+	os-release"
+
+_builddir="$srcdir"/systemd-$pkgver
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	cd "$_builddir"
+	./configure \
+		--sysconfdir=/etc \
+		--mandir=/usr/share/man \
+		--infodir=/usr/share/info \
+		--localstatedir=/var \
+		--with-distro=gentoo \
+		--enable-gtk \
+		|| return 1
+	make || return 1
+}
+
+package() {
+	replaces="busybox"
+
+	cd "$_builddir"
+	make DESTDIR="$pkgdir" install || return 1
+	rm -f "$pkgdir"/usr/lib/*.la
+	mkdir -p "$pkgdir"/bin "$pkgdir"/sbin "$pkgdir"/etc
+	ln -sf ../usr/lib/systemd/systemd "$pkgdir"/bin/systemd
+	ln -sf ../usr/bin/systemctl "$pkgdir"/bin/systemctl
+
+	for i in "$srcdir"/*.service; do
+		msg "Installing service $i"
+		install -m644 $i "$pkgdir"/usr/lib/systemd/system || return 1
+	done
+
+	install -m644 "$srcdir"/os-release "$pkgdir"/etc
+
+	ln -sf ../bin/systemd "$pkgdir"/sbin/init
+
+	ln -sf /usr/lib/systemd/system/network.target \
+		"$pkgdir"/etc/systemd/system/multi-user.target.wants
+
+	mkdir -p "$pkgdir"/etc/systemd/system/network.target.wants
+	ln -sf /usr/lib/systemd/system/ifup@.service \
+		"$pkgdir"/etc/systemd/system/network.target.wants/ifup@eth0.service
+}
+
+gtk() {
+	replaces=systemd
+	mkdir -p "$subpkgdir"/usr/bin
+	mv "$pkgdir"/usr/bin/systemadm "$subpkgdir"/usr/bin
+	mv "$pkgdir"/usr/bin/systemd-gnome-ask-password-agent "$subpkgdir"/usr/bin
+}
+
+md5sums="11f44ff74c87850064e4351518bcff17  systemd-44.tar.xz
+74d5ab3a79f6e2bf7cea3b2c866340a7  ifup@.service
+fe7e40d5d5c9d89eade0a2120873d26e  getty@.service
+c1c5291dd594466dc6f6e4fac9e8b5de  remount-rootfs.service
+21439735ae9bad25beb9edbcdce60712  os-release"
