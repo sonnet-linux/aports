@@ -1,7 +1,7 @@
 # Maintainer: William Pitcock <nenolod@dereferenced.org>
 pkgname=libc6
 pkgver=2.15
-pkgrel=6
+pkgrel=7
 pkgdesc="GNU C Library"
 url="http://www.gnu.org/software/libc"
 license="LGPL"
@@ -15,6 +15,7 @@ source="http://ftp.gnu.org/gnu/glibc/glibc-${pkgver}.tar.bz2
 	stat.patch
 	libm-ifunc.patch
 	ld-trace.patch
+	austin-group-bug-555.patch
         nscd.initd ld.so.conf"
 
 [ "$ALPINE_LIBC" = "glibc" ] && arch="all"
@@ -28,6 +29,7 @@ prepare() {
 	patch -p1 -i "$srcdir"/stat.patch
 	patch -p1 -i "$srcdir"/libm-ifunc.patch
 	patch -p1 -i "$srcdir"/ld-trace.patch
+	patch -p1 -i "$srcdir"/austin-group-bug-555.patch
 	sed -i 's/timezone rt/rt/' Makeconfig
 	echo "slibdir=/lib" >> configparms
 	mkdir "$_builddir"
@@ -152,5 +154,6 @@ md5sums="5335870d75d221370193d543ad9852e8  glibc-2.15.tar.bz2
 4a5a1328a7c712484b8751ccd092e0e9  stat.patch
 b70d55529ce591f4344bbefca1d2d7c8  libm-ifunc.patch
 e0d6df38c8c60c00d32ac6e014524f9f  ld-trace.patch
+fc3430d60e47bff8ad79b7363c30121f  austin-group-bug-555.patch
 0cb7dd4e6ce03c4d9b68bff7da52cef0  nscd.initd
 a9870f383320e52490becb5d530fb076  ld.so.conf"

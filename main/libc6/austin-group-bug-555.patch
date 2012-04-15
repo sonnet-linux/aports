@@ -1,0 +1,22 @@
+--- glibc-2.15.orig/sysdeps/posix/libc_fatal.c
++++ glibc-2.15/sysdeps/posix/libc_fatal.c
+@@ -67,7 +67,7 @@
+     fd = open_not_cancel_2 (_PATH_TTY, O_RDWR | O_NOCTTY | O_NDELAY);
+ 
+   if (fd == -1)
+-    fd = STDERR_FILENO;
++    fd = isatty(STDERR_FILENO) ? STDERR_FILENO : -1;
+ 
+   struct str_list *list = NULL;
+   int nlist = 0;
+--- glibc-2.15.orig/sysdeps/unix/sysv/linux/libc_fatal.c
++++ glibc-2.15/sysdeps/unix/sysv/linux/libc_fatal.c
+@@ -70,7 +70,7 @@
+     fd = open_not_cancel_2 (_PATH_TTY, O_RDWR | O_NOCTTY | O_NDELAY);
+ 
+   if (fd == -1)
+-    fd = STDERR_FILENO;
++    fd = isatty(STDERR_FILENO) ? STDERR_FILENO : -1;
+ 
+   struct str_list *list = NULL;
+   int nlist = 0;
